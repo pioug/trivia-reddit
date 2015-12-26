@@ -1,0 +1,6 @@
+Screenshots background color:
+#FFDDDD
+
+Detailed description:
+This extension will replace your new tab page with a random post coming from /r/askscience, /r/explainlikeimfive, /r/todayilearned. It covers a wide range of topics. Start using it now and learn something new every time your open a tab!
+If you have any feedback, you can post a review / suggestion on the Chrome web store, or contact me directly via Twitter @pioug.

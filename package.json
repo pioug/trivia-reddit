@@ -1,0 +1,16 @@
+{
+  "name": "reddit-trivia",
+  "scripts": {
+    "watch": "babel --presets react src --watch --out-dir build",
+    "serve": "gulp"
+  },
+  "dependencies": {
+    "react": "0.14.3",
+    "react-dom": "0.14.3"
+  },
+  "devDependencies": {
+    "babel-preset-react": "6.3.13",
+    "gulp-html-replace": "1.5.5",
+    "gulp-zip": "3.0.2"
+  }
+}
