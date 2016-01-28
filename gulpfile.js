@@ -1,10 +1,26 @@
+'use strict';
+
+const babelify = require('babelify');
+const browserify = require('browserify');
+const browserSync = require('browser-sync').create();
 const gulp = require('gulp');
 const htmlreplace = require('gulp-html-replace');
-const zip = require('gulp-zip');
-const browserSync = require('browser-sync').create();
 const manifest = require('./src/manifest.json');
+const source = require('vinyl-source-stream');
+const watchify = require('watchify');
+const zip = require('gulp-zip');
 
-gulp.task('default', function() {
+gulp.task('default', () => {
+  const bundler = browserify({
+      cache: {},
+      debug: true,
+      entries: 'src/app.jsx',
+      packageCache: {},
+      plugin: [watchify],
+      transform: [babelify]
+    })
+    .on('update', rebundle);
+
   browserSync.init({
     server: {
       baseDir: ['src', 'build'],
@@ -17,32 +33,42 @@ gulp.task('default', function() {
   gulp.watch('build/**/*', browserSync.reload);
   gulp.watch('src/**/*.html', browserSync.reload);
   gulp.watch('src/**/*.css', browserSync.reload);
+  rebundle();
+
+  function rebundle() {
+    return bundler
+      .bundle()
+      .pipe(source('bundle.js'))
+      .pipe(gulp.dest('build'))
+  }
 });
 
-gulp.task('build', function() {
-  return gulp.src([
-      'node_modules/react/dist/react.js',
-      'node_modules/react-dom/dist/react-dom.js',
+gulp.task('scripts', () =>
+  browserify({
+      entries: 'src/app.jsx',
+      transform: [babelify]
+    })
+    .bundle()
+    .pipe(source('bundle.js'))
+    .pipe(gulp.dest('build'))
+);
+
+gulp.task('build', () =>
+  gulp.src([
       'src/index.html',
       'src/app.css',
       'src/manifest.json'
     ])
-    .pipe(htmlreplace({
-      react: [
-        'react.js',
-        'react-dom.js'
-      ]
-    }))
-    .pipe(gulp.dest('build'));
-});
+    .pipe(gulp.dest('build'))
+);
 
-gulp.task('images', function() {
-  return gulp.src('src/*img/*')
-    .pipe(gulp.dest('build'));
-})
+gulp.task('images', () =>
+  gulp.src('src/*img/*')
+    .pipe(gulp.dest('build'))
+);
 
-gulp.task('bundle', ['build', 'images'], function () {
-  return gulp.src('build/**/*')
+gulp.task('bundle', ['build', 'images'], () =>
+  gulp.src('build/**/*')
     .pipe(zip('trivia-for-reddit-' + manifest.version + '.zip'))
-    .pipe(gulp.dest('bundle'));
-});
+    .pipe(gulp.dest('bundle'))
+);

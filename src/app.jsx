@@ -1,5 +1,8 @@
 'use strict';
 
+import React from 'react';
+import { render } from 'react-dom';
+
 class RedditTrivia extends React.Component {
   constructor() {
     let subreddits = ['askscience', 'explainlikeimfive', 'todayilearned'];
@@ -46,7 +49,7 @@ class RedditTrivia extends React.Component {
   }
 }
 
-ReactDOM.render(
+render(
   <RedditTrivia />,
   document.getElementById('main')
 );
