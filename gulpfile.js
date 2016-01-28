@@ -26,7 +26,8 @@ gulp.task('default', () => {
       baseDir: ['src', 'build'],
       routes: {
         '/node_modules': 'node_modules'
-      }
+      },
+      middleware: [require('connect-history-api-fallback')()]
     }
   });
 
