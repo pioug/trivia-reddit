@@ -1,33 +1,54 @@
-@import url(https://fonts.googleapis.com/css?family=Lato:300,700);
+@import url(https://fonts.googleapis.com/css?family=Lato:400);
 
 body {
-  background-color: #F1F2F2;
-  color: #282526;
+  color: rgba(255, 255, 255, 0.90);
   display: flex;
   font-family: 'Lato';
   height: 100vh;
   justify-content: center;
+  margin: 0;
   overflow: hidden;
 }
 
+#main {
+  display: flex;
+  flex-grow: 1;
+}
+
 main {
-  margin-top: 200px;
-  max-width: 600px;
-  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+header {
+  display: flex;
+  flex-direction: column-reverse;
+  flex-grow: 2;
+}
+
+footer {
+  flex-grow: 5;
 }
 
 h1 {
+  display: block;
   font-size: 26px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.5;
-  padding: 4px 12px;
+  margin: 0 auto;
+  padding: 25px 12px;
+  width: 600px;
 }
 
 h2 {
-  color: #999A9D;
+  color: rgba(0, 0, 0, 0.50);
+  font-family: sans-serif;
   font-size: 16px;
-  font-weight: 300;
-  padding: 0 12px;
+  font-weight: normal;
+  margin: 0 auto;
+  padding: 25px 12px;
+  width: 600px;
 }
 
 a {
@@ -37,14 +58,4 @@ a {
 
 a:not([class]):hover {
   text-decoration: underline;
-}
-
-.anchor-background {
-  border-radius: 2px;
-  display: block;
-  transition: background-color 100ms ease-out;
-}
-
-.anchor-background:hover {
-  background-color: rgba(0, 0, 0, 0.1);
 }

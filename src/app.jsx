@@ -1,5 +1,21 @@
 'use strict';
 
+import React from 'react';
+import { render } from 'react-dom';
+
+const backgroundColors = [
+  '#EF5350',
+  '#F06292',
+  '#9575CD',
+  '#40C4FF',
+  '#26A69A',
+  '#8BC34A',
+  '#26C6DA',
+  '#607D8B',
+  '#FF5722',
+  '#6D4C41'
+];
+
 class RedditTrivia extends React.Component {
   constructor() {
     let subreddits = ['askscience', 'explainlikeimfive', 'todayilearned'];
@@ -36,17 +52,25 @@ class RedditTrivia extends React.Component {
   }
   render() {
     let post = this.state.post || {};
+    let style = {
+      backgroundColor: backgroundColors[Math.floor(Math.random() * backgroundColors.length)]
+    };
+
     console.log(post.title);
     return (
       <main>
-        <a className="anchor-background" href={post.url}><h1 dangerouslySetInnerHTML={ { __html: post.title } }></h1></a>
-        <h2><a href={'https://www.reddit.com' + post.permalink}>/r/{post.subreddit}</a></h2>
+        <header style={style}>
+          <h1><a href={post.url} dangerouslySetInnerHTML={ { __html: post.title } }></a></h1>
+        </header>
+        <footer>
+          <h2><a href={'https://www.reddit.com' + post.permalink}>/r/{post.subreddit}</a></h2>
+        </footer>
       </main>
     );
   }
 }
 
-ReactDOM.render(
+render(
   <RedditTrivia />,
   document.getElementById('main')
 );
