@@ -3,6 +3,7 @@
 const babelify = require('babelify');
 const browserify = require('browserify');
 const browserSync = require('browser-sync').create();
+const del = require('del');
 const gulp = require('gulp');
 const htmlreplace = require('gulp-html-replace');
 const manifest = require('./src/manifest.json');
@@ -68,8 +69,10 @@ gulp.task('images', () =>
     .pipe(gulp.dest('build'))
 );
 
-gulp.task('bundle', ['build', 'images'], () =>
+gulp.task('bundle', ['build', 'images', 'scripts'], () =>
   gulp.src('build/**/*')
     .pipe(zip('trivia-for-reddit-' + manifest.version + '.zip'))
     .pipe(gulp.dest('bundle'))
 );
+
+gulp.task('clean', (done) => del('build'));
