@@ -2,11 +2,9 @@
   "manifest_version": 2,
   "name": "Trivia for Reddit",
   "description": "Get a question or fact about science, history, or news when you open a tab.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "icons": {
-    "16": "img/icon16.png",
-    "48": "img/icon48.png",
-    "128": "img/icon128.png"
+    "128": "img/icon256.png"
   },
   "chrome_url_overrides" : {
     "newtab": "index.html"
