@@ -16,6 +16,8 @@ const backgroundColors = [
   '#6D4C41'
 ];
 
+const backgroundColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)]
+
 class RedditTrivia extends React.Component {
   constructor() {
     let subreddits = ['askscience', 'explainlikeimfive', 'todayilearned'];
@@ -52,9 +54,7 @@ class RedditTrivia extends React.Component {
   }
   render() {
     let post = this.state.post || {};
-    let style = {
-      backgroundColor: backgroundColors[Math.floor(Math.random() * backgroundColors.length)]
-    };
+    let style = { backgroundColor };
 
     console.log(post.title);
     return (
