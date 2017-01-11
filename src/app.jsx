@@ -20,9 +20,9 @@ const backgroundColor = backgroundColors[Math.floor(Math.random() * backgroundCo
 
 class RedditTrivia extends React.Component {
   constructor() {
-    let subreddits = ['askscience', 'explainlikeimfive', 'todayilearned'];
-    let rand = Math.floor(Math.random() * subreddits.length)
-    let subreddit = subreddits[rand];
+    const subreddits = ['askscience', 'explainlikeimfive', 'todayilearned'];
+    const rand = Math.floor(Math.random() * subreddits.length)
+    const subreddit = subreddits[rand];
     super();
 
     if (localStorage.post) {
@@ -35,11 +35,11 @@ class RedditTrivia extends React.Component {
     fetch('https://www.reddit.com/r/' + subreddit + '.json')
       .then((response) => response.json())
       .then((json) => {
-        let posts = json.data.children;
-        let rand = Math.floor(Math.random() * posts.length);
-        let post = posts[rand];
-        let randNext = Math.floor(Math.random() * posts.length);
-        let postNext = posts[rand];
+        const posts = json.data.children;
+        const rand = Math.floor(Math.random() * posts.length);
+        const post = posts[rand];
+        const randNext = Math.floor(Math.random() * posts.length);
+        const postNext = posts[rand];
         localStorage.post = JSON.stringify({
           url : postNext.data.url,
           title: postNext.data.title,
@@ -53,8 +53,8 @@ class RedditTrivia extends React.Component {
       });
   }
   render() {
-    let post = this.state.post || {};
-    let style = { backgroundColor };
+    const post = this.state.post || {};
+    const style = { backgroundColor };
 
     console.log(post.title);
     return (
