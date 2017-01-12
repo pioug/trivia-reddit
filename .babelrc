@@ -1,6 +1,10 @@
 {
   "presets": [
-    "es2015"
+    ["env", {
+      "targets": {
+        "browsers": ["last 5 Chrome versions"]
+      }
+    }]
   ],
   "plugins": [
     ["transform-react-jsx", { "pragma":"h" }]
