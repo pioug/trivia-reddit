@@ -1,7 +1,8 @@
 'use strict';
 
-import React from 'react';
-import { render } from 'react-dom';
+import preact from 'preact';
+
+/** @jsx preact.h */
 
 const backgroundColors = [
   '#EF5350',
@@ -18,7 +19,7 @@ const backgroundColors = [
 
 const backgroundColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)]
 
-class RedditTrivia extends React.Component {
+class RedditTrivia extends preact.Component {
   constructor() {
     const subreddits = ['askscience', 'explainlikeimfive', 'todayilearned'];
     const rand = Math.floor(Math.random() * subreddits.length)
@@ -70,7 +71,7 @@ class RedditTrivia extends React.Component {
   }
 }
 
-render(
+preact.render(
   <RedditTrivia />,
   document.getElementById('main')
 );
