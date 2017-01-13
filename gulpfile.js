@@ -5,21 +5,26 @@ const browserify = require('browserify');
 const browserSync = require('browser-sync').create();
 const del = require('del');
 const gulp = require('gulp');
-const htmlreplace = require('gulp-html-replace');
 const manifest = require('./src/manifest.json');
+const replace = require('streplacify');
 const source = require('vinyl-source-stream');
 const watchify = require('watchify');
 const zip = require('gulp-zip');
 
+const env = {
+  development: {
+    heap: 64976935
+  },
+  production: {
+    heap: 973980036
+  }
+};
+
 gulp.task('default', () => {
-  const bundler = browserify({
-      cache: {},
-      debug: true,
-      entries: 'src/app.jsx',
-      packageCache: {},
-      plugin: [watchify],
-      transform: [babelify]
-    })
+  const bundler = browserifyInit({
+    debug: true,
+    plugin: [watchify]
+  })
     .on('update', rebundle);
 
   browserSync.init({
@@ -46,10 +51,7 @@ gulp.task('default', () => {
 });
 
 gulp.task('scripts', () =>
-  browserify({
-      entries: 'src/app.jsx',
-      transform: [babelify]
-    })
+  browserifyInit()
     .bundle()
     .pipe(source('bundle.js'))
     .pipe(gulp.dest('build'))
@@ -57,10 +59,10 @@ gulp.task('scripts', () =>
 
 gulp.task('build', () =>
   gulp.src([
-      'src/index.html',
-      'src/app.css',
-      'src/manifest.json'
-    ])
+    'src/index.html',
+    'src/app.css',
+    'src/manifest.json'
+  ])
     .pipe(gulp.dest('build'))
 );
 
@@ -76,3 +78,20 @@ gulp.task('bundle', ['build', 'images', 'scripts'], () =>
 );
 
 gulp.task('clean', (done) => del('build'));
+
+function browserifyInit(params = { debug: false }) {
+  process.NODE_ENV = params.debug ? 'development' : 'production';
+  return browserify(Object.assign({
+    cache: {},
+    entries: 'src/app.jsx',
+    packageCache: {}
+  }, params))
+    .transform(babelify)
+    .transform(replace, {
+      replace: getStringsToReplace(env[process.NODE_ENV])
+    });
+}
+
+function getStringsToReplace(opt) {
+  return Object.keys(opt).map(key => ({ from: `@@${key}`, to: opt[key] }));
+}
