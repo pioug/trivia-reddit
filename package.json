@@ -1,7 +1,7 @@
 {
   "name": "reddit-trivia",
   "scripts": {
-    "bundle": "NODE_ENV=production gulp clean && gulp bundle",
+    "bundle": "gulp clean && NODE_ENV=production gulp bundle",
     "start": "NODE_ENV=development gulp"
   },
   "dependencies": {

@@ -28,14 +28,18 @@ gulp.task('default', () => {
   }
 
   function rebundle() {
-    gulp.start('scripts');
+    gulp.start('scripts:app');
+    gulp.start('scripts:options');
   }
 });
 
-gulp.task('scripts', () => {
-  browserifyInit({ entry: 'app' }).pipe(gulp.dest('build'));
-  browserifyInit({ entry: 'options' }).pipe(gulp.dest('build'));
-});
+gulp.task('scripts:app', () =>
+  browserifyInit({ entry: 'app' }).pipe(gulp.dest('build'))
+);
+
+gulp.task('scripts:options', () =>
+  browserifyInit({ entry: 'options' }).pipe(gulp.dest('build'))
+);
 
 gulp.task('build', () =>
   gulp.src([
@@ -52,7 +56,7 @@ gulp.task('images', () =>
     .pipe(gulp.dest('build'))
 );
 
-gulp.task('bundle', ['build', 'images', 'scripts'], () =>
+gulp.task('bundle', ['build', 'images', 'scripts:app', 'scripts:options'], () =>
   gulp.src('build/**/*')
     .pipe(zip('trivia-for-reddit-' + manifest.version + '.zip'))
     .pipe(gulp.dest('bundle'))
