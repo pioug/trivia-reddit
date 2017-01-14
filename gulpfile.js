@@ -1,14 +1,10 @@
-'use strict';
-
 const babelify = require('babelify');
 const browserify = require('browserify');
-const browserSync = require('browser-sync').create();
 const del = require('del');
 const gulp = require('gulp');
 const manifest = require('./src/manifest.json');
 const replace = require('streplacify');
 const source = require('vinyl-source-stream');
-const watchify = require('watchify');
 const zip = require('gulp-zip');
 
 const env = {
@@ -21,45 +17,30 @@ const env = {
 };
 
 gulp.task('default', () => {
-  const bundler = browserifyInit({
-    debug: true,
-    plugin: [watchify]
-  })
-    .on('update', rebundle);
-
-  browserSync.init({
-    server: {
-      baseDir: ['src', 'build'],
-      routes: {
-        '/node_modules': 'node_modules'
-      },
-      middleware: [require('connect-history-api-fallback')()]
-    }
-  });
-
-  gulp.watch('build/**/*', browserSync.reload);
-  gulp.watch('src/**/*.html', browserSync.reload);
-  gulp.watch('src/**/*.css', browserSync.reload);
+  gulp.watch('src/**/*.css', rebuild);
+  gulp.watch('src/**/*.html', rebuild);
+  gulp.watch('src/**/*.jsx', rebundle);
+  rebuild();
   rebundle();
 
+  function rebuild() {
+    gulp.start('build');
+  }
+
   function rebundle() {
-    return bundler
-      .bundle()
-      .pipe(source('bundle.js'))
-      .pipe(gulp.dest('build'))
+    gulp.start('scripts');
   }
 });
 
-gulp.task('scripts', () =>
-  browserifyInit()
-    .bundle()
-    .pipe(source('bundle.js'))
-    .pipe(gulp.dest('build'))
-);
+gulp.task('scripts', () => {
+  browserifyInit({ entry: 'app' }).pipe(gulp.dest('build'));
+  browserifyInit({ entry: 'options' }).pipe(gulp.dest('build'));
+});
 
 gulp.task('build', () =>
   gulp.src([
     'src/index.html',
+    'src/options.html',
     'src/app.css',
     'src/manifest.json'
   ])
@@ -77,19 +58,21 @@ gulp.task('bundle', ['build', 'images', 'scripts'], () =>
     .pipe(gulp.dest('bundle'))
 );
 
-gulp.task('clean', (done) => del('build'));
+gulp.task('clean', () => del('build'));
 
-function browserifyInit(params = { debug: false }) {
-  process.env.NODE_ENV = params.debug ? 'development' : 'production';
+function browserifyInit(params) {
   return browserify(Object.assign({
     cache: {},
-    entries: 'src/app.jsx',
-    packageCache: {}
+    entries: `src/${params.entry}.jsx`,
+    packageCache: {},
+    debug: process.env.NODE_ENV === 'development'
   }, params))
     .transform(babelify, { global: true })
     .transform(replace, {
-      replace: getStringsToReplace(env[process.env.NODE_ENV])
-    });
+      replace: getStringsToReplace(env[process.env.NODE_ENV || 'development'])
+    })
+    .bundle()
+    .pipe(source(params.entry + '.js'));
 }
 
 function getStringsToReplace(opt) {

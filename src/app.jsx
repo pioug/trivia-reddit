@@ -1,6 +1,5 @@
-'use strict';
-
 import { Component, h, render } from 'preact';
+import { DEFAULT_SUBREDDITS } from './constants.js';
 
 const backgroundColors = [
   '#EF5350',
@@ -15,13 +14,25 @@ const backgroundColors = [
   '#6D4C41'
 ];
 
+chrome.storage.sync.get('subreddits', obj => {
+  const subreddits = obj.subreddits && obj.subreddits.length ? obj.subreddits : DEFAULT_SUBREDDITS;
+
+  if (!obj.subreddits || !obj.subreddits.length) {
+    chrome.storage.sync.set({ subreddits: subreddits });
+  }
+
+  render(
+    <RedditTrivia subreddits={subreddits} />,
+    document.getElementById('app')
+  );
+});
+
 const backgroundColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)]
 
 class RedditTrivia extends Component {
-  constructor() {
-    const subreddits = ['askscience', 'explainlikeimfive', 'todayilearned'];
-    const rand = Math.floor(Math.random() * subreddits.length)
-    const subreddit = subreddits[rand];
+  constructor(props) {
+    const rand = Math.floor(Math.random() * props.subreddits.length)
+    const subreddit = props.subreddits[rand];
     super();
 
     if (localStorage.post) {
@@ -31,9 +42,9 @@ class RedditTrivia extends Component {
       this.state = {};
     }
 
-    fetch('https://www.reddit.com/r/' + subreddit + '.json')
-      .then((response) => response.json())
-      .then((json) => {
+    fetch(`https://www.reddit.com${subreddit}.json`)
+      .then(response => response.json())
+      .then(json => {
         const posts = json.data.children;
         const rand = Math.floor(Math.random() * posts.length);
         const post = posts[rand];
@@ -49,30 +60,51 @@ class RedditTrivia extends Component {
         if (!this.state.post) {
           this.setState({ post: post.data });
         }
+      })
+      .catch(error => {
+        if (!navigator.onLine) {
+          this.setState({
+            post: {
+              title: 'There is no Internet connection 🙉'
+            }
+          });
+          return;
+        }
+
+        let id;
+        chrome.notifications.create(null, {
+          type: 'basic',
+          iconUrl: 'img/icon256.png',
+          message: subreddit,
+          title: 'Could not open the subreddit',
+          buttons: [
+            { title: 'Open Preferences' }
+          ]
+        }, res => id = res);
+        chrome.notifications.onButtonClicked.addListener(function(notifId, btnIdx) {
+          if (id === notifId && btnIdx === 0) {
+            heap.track('Open Preferences from notification');
+            location.href = `options.html?subreddit=${subreddit}`;
+            chrome.notifications.clear(notifId);
+          }
+        });
       });
   }
   render() {
     const post = this.state.post || {};
     const style = { backgroundColor };
-
-    console.log(post.title);
     return (
       <main>
         <header style={style}>
           <h1><a href={post.url} dangerouslySetInnerHTML={ { __html: post.title } }></a></h1>
         </header>
         <footer>
-          <h2><a href={'https://www.reddit.com' + post.permalink}>/r/{post.subreddit}</a></h2>
+          { post.subreddit && <h2><a href={'https://www.reddit.com' + post.permalink}>/r/{post.subreddit}</a></h2> }
         </footer>
       </main>
     );
   }
 }
 
-render(
-  <RedditTrivia />,
-  document.getElementById('main')
-);
-
-window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src="https://cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
-heap.load("@@heap", { forceSSL: true });
+window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||'https:'===document.location.protocol,a=document.createElement('script');a.type='text/javascript',a.async=!0,a.src='https://cdn.heapanalytics.com/js/heap-'+e+'.js';var o=document.getElementsByTagName('script')[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=['clearEventProperties','identify','setEventProperties','track','unsetEventProperty'],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+heap.load('@@heap', { forceSSL: true });

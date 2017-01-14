@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Trivia for Reddit</title>
+  <style type="text/css">
+    body {
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        'Segoe UI',
+        Roboto,
+        Oxygen-Sans,
+        Ubuntu,
+        Cantarell,
+        'Helvetica Neue',
+        sans-serif;
+      font-size: 16px;
+      margin: 24px 32px;
+    }
+
+    input {
+      font-family: "Courier New", monospace;
+      font-size: 16px;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .list {
+      font-family: "Courier New", monospace;
+      max-width: 400px;
+      border: 1px solid #ECEFF1;
+    }
+
+    form,
+    li {
+      display: flex;
+      padding: 10px;
+    }
+
+    li:hover:hover {
+      background-color: #FFF9C4;
+    }
+
+    li:nth-child(2n) {
+      background: #ECEFF1;
+    }
+
+    form {
+      background-color: #607D8B;
+      display: flex;
+      flex: 1;
+    }
+
+    label,
+    input {
+      flex: 1;
+      margin-right: 10px;
+    }
+
+    input {
+      border: 0;
+      border-radius: 2px;
+      outline: 0;
+      padding: 5px 5px 4px 5px;
+    }
+
+    input:focus {
+      box-shadow: 0 0 0 1px #00B0FF;
+    }
+
+    button {
+      background-color: #1DE9B6;
+      border-radius: 2px;
+      border: 0;
+      font-family: "Courier New", monospace;
+      padding: 4px 8px 3px 8px;
+    }
+
+    label a {
+      color: #000;
+      text-decoration: none;
+    }
+
+    label a:hover:hover {
+      color: #0000EE;
+      text-decoration: underline;
+    }
+
+    a {
+      cursor: pointer;
+    }
+
+    .errored {
+      box-shadow: 0 0 2px 2px #FF6E40;
+      position: relative;
+    }
+
+    .delete {
+      color: #FF8A80;
+      user-select: none;
+    }
+
+    .undo {
+      color: #8C9EFF;
+      user-select: none;
+    }
+
+    .deleted {
+      text-decoration: line-through;
+    }
+  </style>
+</head>
+<body>
+  <h1>Subreddits</h1>
+  <div id="app"></div>
+  <script src="options.js"></script>
+</body>
+</html>

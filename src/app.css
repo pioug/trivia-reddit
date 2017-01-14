@@ -17,7 +17,7 @@ body {
   overflow: hidden;
 }
 
-#main {
+#app {
   display: flex;
   flex-grow: 1;
 }
@@ -62,6 +62,6 @@ a {
   text-decoration: none;
 }
 
-a:not([class]):hover {
+a:hover {
   text-decoration: underline;
 }
