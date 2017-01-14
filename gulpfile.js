@@ -80,15 +80,15 @@ gulp.task('bundle', ['build', 'images', 'scripts'], () =>
 gulp.task('clean', (done) => del('build'));
 
 function browserifyInit(params = { debug: false }) {
-  process.NODE_ENV = params.debug ? 'development' : 'production';
+  process.env.NODE_ENV = params.debug ? 'development' : 'production';
   return browserify(Object.assign({
     cache: {},
     entries: 'src/app.jsx',
     packageCache: {}
   }, params))
-    .transform(babelify)
+    .transform(babelify, { global: true })
     .transform(replace, {
-      replace: getStringsToReplace(env[process.NODE_ENV])
+      replace: getStringsToReplace(env[process.env.NODE_ENV])
     });
 }
 

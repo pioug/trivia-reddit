@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "babel-plugin-transform-react-jsx": "6.8.0",
+    "babel-preset-babili": "0.0.9",
     "babel-preset-env": "1.1.8",
     "babelify": "7.3.0",
     "browser-sync": "2.18.6",
