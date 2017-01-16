@@ -70,24 +70,6 @@ class RedditTrivia extends Component {
           });
           return;
         }
-
-        let id;
-        chrome.notifications.create(null, {
-          type: 'basic',
-          iconUrl: 'img/icon256.png',
-          message: subreddit,
-          title: 'Could not open the subreddit',
-          buttons: [
-            { title: 'Open Preferences' }
-          ]
-        }, res => id = res);
-        chrome.notifications.onButtonClicked.addListener(function(notifId, btnIdx) {
-          if (id === notifId && btnIdx === 0) {
-            heap.track('Open Preferences from notification');
-            location.href = `options.html?subreddit=${subreddit}`;
-            chrome.notifications.clear(notifId);
-          }
-        });
       });
   }
   render() {

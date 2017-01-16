@@ -12,7 +12,6 @@
     "newtab": "index.html"
   },
   "permissions": [
-    "notifications",
     "storage"
   ]
 }
