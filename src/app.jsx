@@ -1,19 +1,6 @@
 import { Component, h, render } from 'preact';
 import { DEFAULT_SUBREDDITS } from './constants.js';
 
-const backgroundColors = [
-  '#EF5350',
-  '#F06292',
-  '#9575CD',
-  '#40C4FF',
-  '#26A69A',
-  '#8BC34A',
-  '#26C6DA',
-  '#607D8B',
-  '#FF5722',
-  '#6D4C41'
-];
-
 chrome.storage.sync.get('subreddits', obj => {
   const subreddits = obj.subreddits && obj.subreddits.length ? obj.subreddits : DEFAULT_SUBREDDITS;
 
@@ -26,8 +13,6 @@ chrome.storage.sync.get('subreddits', obj => {
     document.getElementById('app')
   );
 });
-
-const backgroundColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)]
 
 class RedditTrivia extends Component {
   constructor(props) {
@@ -74,10 +59,9 @@ class RedditTrivia extends Component {
   }
   render() {
     const post = this.state.post || {};
-    const style = { backgroundColor };
     return (
       <main>
-        <header style={style}>
+        <header>
           <h1><a href={post.url} dangerouslySetInnerHTML={ { __html: post.title } }></a></h1>
         </header>
         <footer>

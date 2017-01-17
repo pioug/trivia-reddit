@@ -41,6 +41,11 @@ class RedditTriviaOptions extends Component {
       return;
     }
 
+    if (this.state.subreddits.includes(subreddit)) {
+      alert('Already added')
+      return;
+    }
+
     this.setState({
       inputValue: '',
       subreddits: this.state.subreddits.concat(subreddit)

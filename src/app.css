@@ -1,5 +1,5 @@
 body {
-  color: rgba(255, 255, 255, 0.90);
+  background: #FAFAFA;
   display: flex;
   font-family:
     -apple-system,
@@ -39,29 +39,34 @@ footer {
 }
 
 h1 {
+  color: #222;
   display: block;
   font-size: 26px;
-  font-weight: 400;
+  font-weight: normal;
   line-height: 1.5;
   margin: 0 auto;
   padding: 24px 12px;
+  position: relative;
   width: 600px;
 }
 
 h2 {
-  color: rgba(0, 0, 0, 0.50);
+  color: #999;
   font-size: 16px;
+  font-weight: 200;
   font-weight: normal;
   margin: 0 auto;
   padding: 25px 12px;
+  position: relative;;
   width: 600px;
 }
 
 a {
+  display: inline-block;
   color: inherit;
   text-decoration: none;
 }
 
 a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }

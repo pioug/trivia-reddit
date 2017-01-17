@@ -19,7 +19,6 @@
     }
 
     input {
-      font-family: "Courier New", monospace;
       font-size: 16px;
     }
 
@@ -30,27 +29,15 @@
     }
 
     .list {
-      font-family: "Courier New", monospace;
-      max-width: 400px;
-      border: 1px solid #ECEFF1;
+      max-width: 300px;
     }
 
     form,
     li {
-      display: flex;
       padding: 10px;
     }
 
-    li:hover:hover {
-      background-color: #FFF9C4;
-    }
-
-    li:nth-child(2n) {
-      background: #ECEFF1;
-    }
-
     form {
-      background-color: #607D8B;
       display: flex;
       flex: 1;
     }
@@ -62,10 +49,11 @@
     }
 
     input {
-      border: 0;
       border-radius: 2px;
       outline: 0;
-      padding: 5px 5px 4px 5px;
+      border: 0;
+      box-shadow: 0 0 0 1px #9E9E9E;
+      padding: 5px;
     }
 
     input:focus {
@@ -101,11 +89,13 @@
 
     .delete {
       color: #FF8A80;
+      font-family: "Courier New", monospace;
       user-select: none;
     }
 
     .undo {
       color: #8C9EFF;
+      font-family: "Courier New", monospace;
       user-select: none;
     }
 
