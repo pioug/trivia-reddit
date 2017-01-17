@@ -17,7 +17,6 @@ const env = {
 };
 
 gulp.task('default', () => {
-  gulp.watch('src/**/*.css', rebuild);
   gulp.watch('src/**/*.html', rebuild);
   gulp.watch('src/**/*.jsx', rebundle);
   rebuild();
@@ -45,7 +44,6 @@ gulp.task('build', () =>
   gulp.src([
     'src/index.html',
     'src/options.html',
-    'src/app.css',
     'src/manifest.json'
   ])
     .pipe(gulp.dest('build'))
