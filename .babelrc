@@ -1,6 +1,17 @@
 {
+  "env": {
+    "production": {
+      "presets": ["babili"]
+    }
+  },
   "presets": [
-    "es2015",
-    "react"
+    ["env", {
+      "targets": {
+        "browsers": ["last 5 Chrome versions"]
+      }
+    }]
+  ],
+  "plugins": [
+    ["transform-react-jsx", { "pragma":"h" }]
   ]
 }

@@ -1,66 +1,51 @@
-'use strict';
-
 const babelify = require('babelify');
 const browserify = require('browserify');
-const browserSync = require('browser-sync').create();
 const del = require('del');
 const gulp = require('gulp');
-const htmlreplace = require('gulp-html-replace');
 const manifest = require('./src/manifest.json');
+const replace = require('streplacify');
 const source = require('vinyl-source-stream');
-const watchify = require('watchify');
 const zip = require('gulp-zip');
 
+const env = {
+  development: {
+    heap: 64976935
+  },
+  production: {
+    heap: 973980036
+  }
+};
+
 gulp.task('default', () => {
-  const bundler = browserify({
-      cache: {},
-      debug: true,
-      entries: 'src/app.jsx',
-      packageCache: {},
-      plugin: [watchify],
-      transform: [babelify]
-    })
-    .on('update', rebundle);
-
-  browserSync.init({
-    server: {
-      baseDir: ['src', 'build'],
-      routes: {
-        '/node_modules': 'node_modules'
-      },
-      middleware: [require('connect-history-api-fallback')()]
-    }
-  });
-
-  gulp.watch('build/**/*', browserSync.reload);
-  gulp.watch('src/**/*.html', browserSync.reload);
-  gulp.watch('src/**/*.css', browserSync.reload);
+  gulp.watch('src/**/*.html', rebuild);
+  gulp.watch('src/**/*.jsx', rebundle);
+  rebuild();
   rebundle();
 
+  function rebuild() {
+    gulp.start('build');
+  }
+
   function rebundle() {
-    return bundler
-      .bundle()
-      .pipe(source('bundle.js'))
-      .pipe(gulp.dest('build'))
+    gulp.start('scripts:app');
+    gulp.start('scripts:options');
   }
 });
 
-gulp.task('scripts', () =>
-  browserify({
-      entries: 'src/app.jsx',
-      transform: [babelify]
-    })
-    .bundle()
-    .pipe(source('bundle.js'))
-    .pipe(gulp.dest('build'))
+gulp.task('scripts:app', () =>
+  browserifyInit({ entry: 'app' }).pipe(gulp.dest('build'))
+);
+
+gulp.task('scripts:options', () =>
+  browserifyInit({ entry: 'options' }).pipe(gulp.dest('build'))
 );
 
 gulp.task('build', () =>
   gulp.src([
-      'src/index.html',
-      'src/app.css',
-      'src/manifest.json'
-    ])
+    'src/index.html',
+    'src/options.html',
+    'src/manifest.json'
+  ])
     .pipe(gulp.dest('build'))
 );
 
@@ -69,10 +54,29 @@ gulp.task('images', () =>
     .pipe(gulp.dest('build'))
 );
 
-gulp.task('bundle', ['build', 'images', 'scripts'], () =>
+gulp.task('bundle', ['build', 'images', 'scripts:app', 'scripts:options'], () =>
   gulp.src('build/**/*')
     .pipe(zip('trivia-for-reddit-' + manifest.version + '.zip'))
     .pipe(gulp.dest('bundle'))
 );
 
-gulp.task('clean', (done) => del('build'));
+gulp.task('clean', () => del('build'));
+
+function browserifyInit(params) {
+  return browserify(Object.assign({
+    cache: {},
+    entries: `src/${params.entry}.jsx`,
+    packageCache: {},
+    debug: process.env.NODE_ENV === 'development'
+  }, params))
+    .transform(babelify, { global: true })
+    .transform(replace, {
+      replace: getStringsToReplace(env[process.env.NODE_ENV || 'development'])
+    })
+    .bundle()
+    .pipe(source(params.entry + '.js'));
+}
+
+function getStringsToReplace(opt) {
+  return Object.keys(opt).map(key => ({ from: `@@${key}`, to: opt[key] }));
+}

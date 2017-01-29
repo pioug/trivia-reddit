@@ -1,28 +1,23 @@
-'use strict';
+import { Component, h, render } from 'preact';
+import { DEFAULT_SUBREDDITS } from './constants.js';
 
-import React from 'react';
-import { render } from 'react-dom';
+chrome.storage.sync.get('subreddits', obj => {
+  const subreddits = obj.subreddits && obj.subreddits.length ? obj.subreddits : DEFAULT_SUBREDDITS;
 
-const backgroundColors = [
-  '#EF5350',
-  '#F06292',
-  '#9575CD',
-  '#40C4FF',
-  '#26A69A',
-  '#8BC34A',
-  '#26C6DA',
-  '#607D8B',
-  '#FF5722',
-  '#6D4C41'
-];
+  if (!obj.subreddits || !obj.subreddits.length) {
+    chrome.storage.sync.set({ subreddits: subreddits });
+  }
 
-const backgroundColor = backgroundColors[Math.floor(Math.random() * backgroundColors.length)]
+  render(
+    <RedditTrivia subreddits={subreddits} />,
+    document.getElementById('app')
+  );
+});
 
-class RedditTrivia extends React.Component {
-  constructor() {
-    let subreddits = ['askscience', 'explainlikeimfive', 'todayilearned'];
-    let rand = Math.floor(Math.random() * subreddits.length)
-    let subreddit = subreddits[rand];
+class RedditTrivia extends Component {
+  constructor(props) {
+    const rand = Math.floor(Math.random() * props.subreddits.length)
+    const subreddit = props.subreddits[rand];
     super();
 
     if (localStorage.post) {
@@ -32,14 +27,14 @@ class RedditTrivia extends React.Component {
       this.state = {};
     }
 
-    fetch('https://www.reddit.com/r/' + subreddit + '.json')
-      .then((response) => response.json())
-      .then((json) => {
-        let posts = json.data.children;
-        let rand = Math.floor(Math.random() * posts.length);
-        let post = posts[rand];
-        let randNext = Math.floor(Math.random() * posts.length);
-        let postNext = posts[rand];
+    fetch(`https://www.reddit.com${subreddit}.json`)
+      .then(response => response.json())
+      .then(json => {
+        const posts = json.data.children;
+        const rand = Math.floor(Math.random() * posts.length);
+        const post = posts[rand];
+        const randNext = Math.floor(Math.random() * posts.length);
+        const postNext = posts[rand];
         localStorage.post = JSON.stringify({
           url : postNext.data.url,
           title: postNext.data.title,
@@ -50,30 +45,32 @@ class RedditTrivia extends React.Component {
         if (!this.state.post) {
           this.setState({ post: post.data });
         }
+      })
+      .catch(error => {
+        if (!navigator.onLine) {
+          this.setState({
+            post: {
+              title: 'There is no Internet connection 🙉'
+            }
+          });
+          return;
+        }
       });
   }
   render() {
-    let post = this.state.post || {};
-    let style = { backgroundColor };
-
-    console.log(post.title);
+    const post = this.state.post || {};
     return (
       <main>
-        <header style={style}>
+        <header>
           <h1><a href={post.url} dangerouslySetInnerHTML={ { __html: post.title } }></a></h1>
         </header>
         <footer>
-          <h2><a href={'https://www.reddit.com' + post.permalink}>/r/{post.subreddit}</a></h2>
+          { post.subreddit && <h2><a href={'https://www.reddit.com' + post.permalink}>/r/{post.subreddit}</a></h2> }
         </footer>
       </main>
     );
   }
 }
 
-render(
-  <RedditTrivia />,
-  document.getElementById('main')
-);
-
-window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||"https:"===document.location.protocol,a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src="https://cdn.heapanalytics.com/js/heap-"+e+".js";var o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=["clearEventProperties","identify","setEventProperties","track","unsetEventProperty"],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
-heap.load("973980036", { forceSSL: true });
+window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||'https:'===document.location.protocol,a=document.createElement('script');a.type='text/javascript',a.async=!0,a.src='https://cdn.heapanalytics.com/js/heap-'+e+'.js';var o=document.getElementsByTagName('script')[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=['clearEventProperties','identify','setEventProperties','track','unsetEventProperty'],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
+heap.load('@@heap', { forceSSL: true });
