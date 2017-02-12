@@ -36,26 +36,35 @@
         sans-serif;
       font-size: 16px;
       justify-content: center;
+      line-height: 1.6;
       margin: 32px 0;
       text-align: center;
     }
 
-    header {
+    .logotype {
       align-items: center;
       display: flex;
       justify-content: center;
-      margin: 32px 0;
+      margin-bottom: 16px;
     }
 
+    header,
     section,
     footer {
-      margin: 32px 0;
+      margin: 48px 32px;
       overflow-x: hidden;
     }
 
     h1 {
       color: #263238;
       margin: 0;
+    }
+
+    h2 {
+      color: #263238;
+      font-size: 18px;
+      margin: 0;
+      font-weight: normal;
     }
 
     small {
@@ -66,8 +75,10 @@
 
     p {
       color: #333;
-      font-size: 20px;
-      margin: 0 16px;
+      font-size: 16px;
+      margin: auto;
+      max-width: 600px;
+      text-align: justify;
     }
 
     button,
@@ -87,7 +98,7 @@
     }
 
     #install-button {
-      background: #FF1744;
+      background: #FF5252;
     }
 
     #install-button:hover {
@@ -129,19 +140,22 @@
 </head>
 <body>
   <header>
-    <img class="logo" src="src/img/icon256.png">
-    <h1>Trivia <small>for Reddit</small></h1>
+    <div class="logotype">
+      <img class="logo" src="src/img/icon256.png">
+      <h1>Trivia <small>for Reddit</small></h1>
+    </div>
+    <h2>Get a glimpse of your favourite subreddits in every new tab.</h2>
   </header>
   <section>
-    <p>Get a glimpse of your favourite subreddits in every new tab.</p>
-  </section>
-  <section>
     <button onclick="install()" id="install-button">
-      Install the extension
+      Install the Chrome extension
     </button>
     <a id="open-store" class="button" href="https://chrome.google.com/webstore/detail/trivia-for-reddit/obolamlakdealmajpalhcccpoificegl?hl=en-US">See in Chrome Web Store</a>
   </section>
   <section>
+    <p><em>Trivia for Reddit</em> is a Chrome extension that replaces your default homepage with a random post picked from a selection of subreddits. Follow your favourite topics without feeling overwhelmed.
+  </section>
+  <section style="margin: 32px 0 32px 14px; padding-right: 14px;">
     <img class="screenshot" src="landing/screenshot-1.png">
   </section>
   <section>
