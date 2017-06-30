@@ -1,20 +1,20 @@
 {
   "name": "reddit-trivia",
   "scripts": {
-    "bundle": "gulp clean && NODE_ENV=production gulp bundle",
+    "bundle": "NODE_ENV=production gulp bundle",
     "start": "NODE_ENV=development gulp"
   },
   "dependencies": {
-    "preact": "7.1.0",
-    "query-string": "4.3.1"
+    "preact": "8.1.0",
+    "query-string": "4.3.4"
   },
   "devDependencies": {
-    "babel-plugin-transform-react-jsx": "6.22.0",
-    "babel-preset-babili": "0.0.10",
-    "babel-preset-env": "1.1.8",
+    "babel-plugin-transform-react-jsx": "6.24.1",
+    "babel-preset-babili": "0.1.4",
+    "babel-preset-env": "1.5.2",
     "babelify": "7.3.0",
-    "browserify": "14.0.0",
-    "del": "2.2.2",
+    "browserify": "14.4.0",
+    "del": "3.0.0",
     "gulp": "3.9.1",
     "gulp-zip": "4.0.0",
     "streplacify": "1.0.0",

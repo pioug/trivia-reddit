@@ -54,13 +54,14 @@ gulp.task('images', () =>
     .pipe(gulp.dest('build'))
 );
 
-gulp.task('bundle', ['build', 'images', 'scripts:app', 'scripts:options'], () =>
+gulp.task('bundle', ['clean:bundle', 'build', 'images', 'scripts:app', 'scripts:options'], () =>
   gulp.src('build/**/*')
     .pipe(zip('trivia-for-reddit-' + manifest.version + '.zip'))
     .pipe(gulp.dest('bundle'))
 );
 
-gulp.task('clean', () => del('build'));
+gulp.task('clean:build', () => del(['build']));
+gulp.task('clean:bundle', () => del(['bundle']));
 
 function browserifyInit(params) {
   return browserify(Object.assign({
