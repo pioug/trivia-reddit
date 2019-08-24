@@ -5,23 +5,21 @@
     "start": "NODE_ENV=development gulp"
   },
   "dependencies": {
-    "preact": "8.1.0",
-    "query-string": "4.3.4"
+    "preact": "8.5.2",
+    "query-string": "6.8.2"
   },
   "devDependencies": {
-    "babel-plugin-transform-react-jsx": "6.24.1",
-    "babel-preset-babili": "0.1.4",
-    "babel-preset-env": "1.5.2",
-    "babelify": "7.3.0",
-    "browserify": "14.4.0",
-    "del": "3.0.0",
-    "gulp": "3.9.1",
-    "gulp-zip": "4.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-transform-react-jsx": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-minify": "0.5.1",
+    "babelify": "10.0.0",
+    "browserify": "16.5.0",
+    "del": "5.1.0",
+    "gulp": "4.0.2",
+    "gulp-zip": "5.0.0",
     "streplacify": "1.0.0",
-    "vinyl-source-stream": "1.1.0",
-    "watchify": "3.9.0"
-  },
-  "engines" : {
-    "node" : "^8.0.0"
+    "vinyl-source-stream": "2.0.0",
+    "watchify": "3.11.1"
   }
 }

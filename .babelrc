@@ -1,17 +1,29 @@
 {
   "env": {
     "production": {
-      "presets": ["babili"]
+      "presets": [
+        "minify"
+      ]
     }
   },
   "presets": [
-    ["env", {
-      "targets": {
-        "browsers": ["last 5 Chrome versions"]
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "browsers": [
+            "last 5 Chrome versions"
+          ]
+        }
       }
-    }]
+    ]
   ],
   "plugins": [
-    ["transform-react-jsx", { "pragma":"h" }]
+    [
+      "@babel/plugin-transform-react-jsx",
+      {
+        "pragma": "h"
+      }
+    ]
   ]
 }
