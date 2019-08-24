@@ -12,22 +12,6 @@ const env = {
   production: {}
 };
 
-gulp.task('default', () => {
-  gulp.watch('src/**/*.html', rebuild);
-  gulp.watch('src/**/*.jsx', rebundle);
-  rebuild();
-  rebundle();
-
-  function rebuild() {
-    gulp.start('build');
-  }
-
-  function rebundle() {
-    gulp.start('scripts:app');
-    gulp.start('scripts:options');
-  }
-});
-
 gulp.task('scripts:app', () =>
   browserifyInit({ entry: 'app' }).pipe(gulp.dest('build'))
 );
@@ -50,14 +34,19 @@ gulp.task('images', () =>
     .pipe(gulp.dest('build'))
 );
 
-gulp.task('bundle', ['clean:bundle', 'build', 'images', 'scripts:app', 'scripts:options'], () =>
+gulp.task('clean:build', () => del(['build']));
+gulp.task('clean:bundle', () => del(['bundle']));
+
+gulp.task('default', gulp.series('build', 'scripts:app', 'scripts:options', () => {
+  gulp.watch('src/**/*.html', gulp.series('build'));
+  gulp.watch('src/**/*.jsx', gulp.parallel('scripts:app', 'scripts:options'));
+}));
+
+gulp.task('bundle', gulp.series('clean:bundle', 'build', 'images', 'scripts:app', 'scripts:options', () =>
   gulp.src('build/**/*')
     .pipe(zip('trivia-for-reddit-' + manifest.version + '.zip'))
     .pipe(gulp.dest('bundle'))
-);
-
-gulp.task('clean:build', () => del(['build']));
-gulp.task('clean:bundle', () => del(['bundle']));
+));
 
 function browserifyInit(params) {
   return browserify(Object.assign({
