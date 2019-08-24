@@ -20,7 +20,7 @@
     "gulp-zip": "4.0.0",
     "streplacify": "1.0.0",
     "vinyl-source-stream": "1.1.0",
-    "watchify": "3.9.0"
+    "watchify": "3.11.1"
   },
   "engines": {
     "node": "^8.0.0"
