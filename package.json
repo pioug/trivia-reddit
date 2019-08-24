@@ -9,10 +9,11 @@
     "query-string": "4.3.4"
   },
   "devDependencies": {
-    "babel-plugin-transform-react-jsx": "6.24.1",
-    "babel-preset-babili": "0.1.4",
-    "babel-preset-env": "1.5.2",
-    "babelify": "7.3.0",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-transform-react-jsx": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "babel-minify": "0.5.1",
+    "babelify": "10.0.0",
     "browserify": "14.4.0",
     "del": "3.0.0",
     "gulp": "3.9.1",
