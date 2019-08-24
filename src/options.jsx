@@ -56,7 +56,6 @@ class RedditTriviaOptions extends Component {
     });
 
     setTimeout(() => this.textInput.focus());
-    heap.track('Add subreddit', { subreddit: subreddit });
   }
   onDelete(subreddit) {
     this.setState({
@@ -65,14 +64,12 @@ class RedditTriviaOptions extends Component {
     chrome.storage.sync.set({
       subreddits: this.state.subreddits.filter(sr => !this.state.deletedSubreddits.includes(sr))
     });
-    heap.track('Delete subreddit', { subreddit: subreddit });
   }
   onUndo(subreddit) {
     this.setState({ deletedSubreddits: this.state.deletedSubreddits.filter(sr => sr !== subreddit) })
     chrome.storage.sync.set({
       subreddits: this.state.subreddits.filter(sr => !this.state.deletedSubreddits.includes(sr))
     });
-    heap.track('Undo subreddit', { subreddit: subreddit });
   }
   render() {
     const li = this.state.subreddits.map(subreddit => {
@@ -95,6 +92,3 @@ class RedditTriviaOptions extends Component {
     );
   }
 }
-
-window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||'https:'===document.location.protocol,a=document.createElement('script');a.type='text/javascript',a.async=!0,a.src='https://cdn.heapanalytics.com/js/heap-'+e+'.js';var o=document.getElementsByTagName('script')[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=['clearEventProperties','identify','setEventProperties','track','unsetEventProperty'],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
-heap.load('@@heap', { forceSSL: true });
