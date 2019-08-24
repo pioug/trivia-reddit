@@ -8,12 +8,8 @@ const source = require('vinyl-source-stream');
 const zip = require('gulp-zip');
 
 const env = {
-  development: {
-    heap: 64976935
-  },
-  production: {
-    heap: 973980036
-  }
+  development: {},
+  production: {}
 };
 
 gulp.task('default', () => {
