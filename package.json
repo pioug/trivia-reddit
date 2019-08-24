@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "preact": "8.5.2",
-    "query-string": "4.3.4"
+    "query-string": "6.8.2"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
