@@ -15,7 +15,7 @@
     "babel-minify": "0.5.1",
     "babelify": "10.0.0",
     "browserify": "14.4.0",
-    "del": "3.0.0",
+    "del": "5.1.0",
     "gulp": "3.9.1",
     "gulp-zip": "4.0.0",
     "streplacify": "1.0.0",
