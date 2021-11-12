@@ -50,13 +50,10 @@ class RedditTriviaOptions extends Component {
         return;
       }
 
-      this.setState({
-        inputValue: "",
-        subreddits: this.state.subreddits.concat(subreddit),
-      });
-
+      const subreddits = this.state.subreddits.concat(subreddit);
+      this.setState({ inputValue: "", subreddits });
       chrome.storage.sync.set({
-        subreddits: this.state.subreddits.filter(
+        subreddits: subreddits.filter(
           (sr) => !this.state.deletedSubreddits.includes(sr)
         ),
       });
@@ -64,24 +61,22 @@ class RedditTriviaOptions extends Component {
       setTimeout(() => this.textInput.focus());
     };
     const onDelete = (subreddit) => {
-      this.setState({
-        deletedSubreddits: this.state.deletedSubreddits.concat(subreddit),
-      });
+      const deletedSubreddits = this.state.deletedSubreddits.concat(subreddit);
+      this.setState({ deletedSubreddits });
       chrome.storage.sync.set({
         subreddits: this.state.subreddits.filter(
-          (sr) => !this.state.deletedSubreddits.includes(sr)
+          (sr) => !deletedSubreddits.includes(sr)
         ),
       });
     };
     const onUndo = (subreddit) => {
-      this.setState({
-        deletedSubreddits: this.state.deletedSubreddits.filter(
-          (sr) => sr !== subreddit
-        ),
-      });
+      const deletedSubreddits = this.state.deletedSubreddits.filter(
+        (sr) => sr !== subreddit
+      );
+      this.setState({ deletedSubreddits });
       chrome.storage.sync.set({
         subreddits: this.state.subreddits.filter(
-          (sr) => !this.state.deletedSubreddits.includes(sr)
+          (sr) => !deletedSubreddits.includes(sr)
         ),
       });
     };
