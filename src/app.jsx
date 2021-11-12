@@ -8,7 +8,7 @@ chrome.storage.sync.get("subreddits", (obj) => {
       : DEFAULT_SUBREDDITS;
 
   if (!obj.subreddits || !obj.subreddits.length) {
-    chrome.storage.sync.set({ subreddits: subreddits });
+    chrome.storage.sync.set({ subreddits });
   }
 
   render(
@@ -36,7 +36,6 @@ class RedditTrivia extends Component {
         const posts = json.data.children;
         const rand = Math.floor(Math.random() * posts.length);
         const post = posts[rand];
-        const randNext = Math.floor(Math.random() * posts.length);
         const postNext = posts[rand];
         localStorage.post = JSON.stringify({
           url: postNext.data.url,
@@ -49,7 +48,7 @@ class RedditTrivia extends Component {
           this.setState({ post: post.data });
         }
       })
-      .catch((error) => {
+      .catch(() => {
         if (!navigator.onLine) {
           this.setState({
             post: {
@@ -66,16 +65,13 @@ class RedditTrivia extends Component {
       <main>
         <header>
           <h1>
-            <a
-              href={post.url}
-              dangerouslySetInnerHTML={{ __html: post.title }}
-            ></a>
+            <a href={post.url}>{post.title}</a>
           </h1>
         </header>
         <footer>
           {post.subreddit && (
             <h2>
-              <a href={"https://www.reddit.com" + post.permalink}>
+              <a href={`https://www.reddit.com${post.permalink}`}>
                 /r/{post.subreddit}
               </a>
             </h2>

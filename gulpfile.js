@@ -50,7 +50,7 @@ gulp.task(
     () =>
       gulp
         .src("build/**/*")
-        .pipe(zip("trivia-for-reddit-" + manifest.version + ".zip"))
+        .pipe(zip(`trivia-for-reddit-${manifest.version}.zip`))
         .pipe(gulp.dest("bundle"))
   )
 );
@@ -72,7 +72,7 @@ function browserifyInit(params) {
       replace: getStringsToReplace(env[process.env.NODE_ENV || "development"]),
     })
     .bundle()
-    .pipe(source(params.entry + ".js"));
+    .pipe(source(`${params.entry}.js`));
 }
 
 function getStringsToReplace(opt) {

@@ -3,6 +3,7 @@
   "scripts": {
     "bundle": "NODE_ENV=production gulp bundle",
     "format": "prettier . --write",
+    "lint": "eslint . --ext .js,.jsx --fix",
     "start": "NODE_ENV=development gulp"
   },
   "dependencies": {
@@ -17,6 +18,8 @@
     "babelify": "^10.0.0",
     "browserify": "^16.5.1",
     "del": "^5.1.0",
+    "eslint": "8.2.0",
+    "eslint-config-preact": "1.2.0",
     "gulp": "^4.0.2",
     "gulp-zip": "^5.0.1",
     "prettier": "2.4.1",
