@@ -1,22 +1,25 @@
-import { Component, h, render } from 'preact';
-import { DEFAULT_SUBREDDITS } from './constants.js';
+import { Component, h, render } from "preact";
+import { DEFAULT_SUBREDDITS } from "./constants.js";
 
-chrome.storage.sync.get('subreddits', obj => {
-  const subreddits = obj.subreddits && obj.subreddits.length ? obj.subreddits : DEFAULT_SUBREDDITS;
+chrome.storage.sync.get("subreddits", (obj) => {
+  const subreddits =
+    obj.subreddits && obj.subreddits.length
+      ? obj.subreddits
+      : DEFAULT_SUBREDDITS;
 
   if (!obj.subreddits || !obj.subreddits.length) {
-    chrome.storage.sync.set({ subreddits: subreddits });
+    chrome.storage.sync.set({ subreddits });
   }
 
   render(
     <RedditTrivia subreddits={subreddits} />,
-    document.getElementById('app')
+    document.getElementById("app")
   );
 });
 
 class RedditTrivia extends Component {
   constructor(props) {
-    const rand = Math.floor(Math.random() * props.subreddits.length)
+    const rand = Math.floor(Math.random() * props.subreddits.length);
     const subreddit = props.subreddits[rand];
     super();
 
@@ -28,30 +31,29 @@ class RedditTrivia extends Component {
     }
 
     fetch(`https://www.reddit.com${subreddit}.json`)
-      .then(response => response.json())
-      .then(json => {
+      .then((response) => response.json())
+      .then((json) => {
         const posts = json.data.children;
         const rand = Math.floor(Math.random() * posts.length);
         const post = posts[rand];
-        const randNext = Math.floor(Math.random() * posts.length);
         const postNext = posts[rand];
         localStorage.post = JSON.stringify({
-          url : postNext.data.url,
+          url: postNext.data.url,
           title: postNext.data.title,
           subreddit: postNext.data.subreddit,
-          permalink: postNext.data.permalink
+          permalink: postNext.data.permalink,
         });
 
         if (!this.state.post) {
           this.setState({ post: post.data });
         }
       })
-      .catch(error => {
+      .catch(() => {
         if (!navigator.onLine) {
           this.setState({
             post: {
-              title: 'There is no Internet connection 🙉'
-            }
+              title: "There is no Internet connection 🙉",
+            },
           });
           return;
         }
@@ -62,15 +64,20 @@ class RedditTrivia extends Component {
     return (
       <main>
         <header>
-          <h1><a href={post.url} dangerouslySetInnerHTML={ { __html: post.title } }></a></h1>
+          <h1>
+            <a href={post.url}>{post.title}</a>
+          </h1>
         </header>
         <footer>
-          { post.subreddit && <h2><a href={'https://www.reddit.com' + post.permalink}>/r/{post.subreddit}</a></h2> }
+          {post.subreddit && (
+            <h2>
+              <a href={`https://www.reddit.com${post.permalink}`}>
+                /r/{post.subreddit}
+              </a>
+            </h2>
+          )}
         </footer>
       </main>
     );
   }
 }
-
-window.heap=window.heap||[],heap.load=function(e,t){window.heap.appid=e,window.heap.config=t=t||{};var n=t.forceSSL||'https:'===document.location.protocol,a=document.createElement('script');a.type='text/javascript',a.async=!0,a.src='https://cdn.heapanalytics.com/js/heap-'+e+'.js';var o=document.getElementsByTagName('script')[0];o.parentNode.insertBefore(a,o);for(var r=function(e){return function(){heap.push([e].concat(Array.prototype.slice.call(arguments,0)))}},p=['clearEventProperties','identify','setEventProperties','track','unsetEventProperty'],c=0;c<p.length;c++)heap[p[c]]=r(p[c])};
-heap.load('@@heap', { forceSSL: true });
