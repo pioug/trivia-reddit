@@ -2,6 +2,7 @@
   "name": "reddit-trivia",
   "scripts": {
     "bundle": "NODE_ENV=production gulp bundle",
+    "format": "prettier . --write",
     "start": "NODE_ENV=development gulp"
   },
   "dependencies": {
@@ -18,6 +19,7 @@
     "del": "^5.1.0",
     "gulp": "^4.0.2",
     "gulp-zip": "^5.0.1",
+    "prettier": "2.4.1",
     "streplacify": "^1.0.0",
     "vinyl-source-stream": "^2.0.0",
     "watchify": "^3.11.1"

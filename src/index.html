@@ -1,101 +1,92 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title></title>
-  <style>
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --background-color: rgba(31, 31, 34);
-        --title-color: rgb(232, 234, 237);
-        --subreddit-color: rgb(154, 160, 166);
+  <head>
+    <title></title>
+    <style>
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --background-color: rgba(31, 31, 34);
+          --title-color: rgb(232, 234, 237);
+          --subreddit-color: rgb(154, 160, 166);
+        }
       }
-    }
 
-    @media (prefers-color-scheme: light) {
-      :root {
-        --background-color: rgb(247 249 250);
-        --title-color: rgb(32, 33, 36);
-        --subreddit-color: rgb(95, 99, 104);
+      @media (prefers-color-scheme: light) {
+        :root {
+          --background-color: rgb(247 249 250);
+          --title-color: rgb(32, 33, 36);
+          --subreddit-color: rgb(95, 99, 104);
+        }
       }
-    }
 
-    body {
-      background: var(--background-color);
-      display: flex;
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        'Segoe UI',
-        Roboto,
-        Oxygen-Sans,
-        Ubuntu,
-        Cantarell,
-        'Helvetica Neue',
-        sans-serif;
-      height: 100vh;
-      justify-content: center;
-      margin: 0;
-      overflow: hidden;
-    }
+      body {
+        background: var(--background-color);
+        display: flex;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+        height: 100vh;
+        justify-content: center;
+        margin: 0;
+        overflow: hidden;
+      }
 
-    #app {
-      display: flex;
-      flex-grow: 1;
-    }
+      #app {
+        display: flex;
+        flex-grow: 1;
+      }
 
-    main {
-      display: flex;
-      flex-direction: column;
-      flex-grow: 1;
-    }
+      main {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      }
 
-    header {
-      display: flex;
-      flex-direction: column-reverse;
-      flex-grow: 2;
-    }
+      header {
+        display: flex;
+        flex-direction: column-reverse;
+        flex-grow: 2;
+      }
 
-    footer {
-      flex-grow: 5;
-    }
+      footer {
+        flex-grow: 5;
+      }
 
-    h1 {
-      color: var(--title-color);
-      display: block;
-      font-size: 26px;
-      font-weight: normal;
-      line-height: 1.5;
-      margin: 0 auto;
-      padding: 24px 12px;
-      position: relative;
-      width: 600px;
-    }
+      h1 {
+        color: var(--title-color);
+        display: block;
+        font-size: 26px;
+        font-weight: normal;
+        line-height: 1.5;
+        margin: 0 auto;
+        padding: 24px 12px;
+        position: relative;
+        width: 600px;
+      }
 
-    h2 {
-      color: var(--subreddit-color);
-      font-size: 16px;
-      font-weight: 200;
-      font-weight: normal;
-      margin: 0 auto;
-      max-width: 600px;
-      padding: 25px 12px;
-      position: relative;;
-    }
+      h2 {
+        color: var(--subreddit-color);
+        font-size: 16px;
+        font-weight: 200;
+        font-weight: normal;
+        margin: 0 auto;
+        max-width: 600px;
+        padding: 25px 12px;
+        position: relative;
+      }
 
-    a {
-      display: inline-block;
-      color: inherit;
-      text-decoration: none;
-    }
+      a {
+        display: inline-block;
+        color: inherit;
+        text-decoration: none;
+      }
 
-    a:hover {
-      text-decoration: none;
-    }
-
-  </style>
-</head>
-<body>
-  <div id="app"></div>
-  <script src="app.js"></script>
-</body>
+      a:hover {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="app.js"></script>
+  </body>
 </html>

@@ -1,9 +1,7 @@
 {
   "env": {
     "production": {
-      "presets": [
-        "minify"
-      ]
+      "presets": ["minify"]
     }
   },
   "presets": [
@@ -11,9 +9,7 @@
       "@babel/preset-env",
       {
         "targets": {
-          "browsers": [
-            "last 5 Chrome versions"
-          ]
+          "browsers": ["last 5 Chrome versions"]
         }
       }
     ]

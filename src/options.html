@@ -1,118 +1,110 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Trivia for Reddit</title>
-  <style type="text/css">
-    body {
-      background: #FAFAFA;
-      color: #222;
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        'Segoe UI',
-        Roboto,
-        Oxygen-Sans,
-        Ubuntu,
-        Cantarell,
-        'Helvetica Neue',
-        sans-serif;
-      font-size: 16px;
-      margin: 24px 32px;
-    }
+  <head>
+    <title>Trivia for Reddit</title>
+    <style type="text/css">
+      body {
+        background: #fafafa;
+        color: #222;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+        font-size: 16px;
+        margin: 24px 32px;
+      }
 
-    h1 {
-      font-size: 26px;
-      font-weight: normal;
-      line-height: 1.5;
-    }
+      h1 {
+        font-size: 26px;
+        font-weight: normal;
+        line-height: 1.5;
+      }
 
-    input {
-      font-size: 16px;
-    }
+      input {
+        font-size: 16px;
+      }
 
-    ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-    }
+      ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
 
-    .list {
-      max-width: 300px;
-    }
+      .list {
+        max-width: 300px;
+      }
 
-    form,
-    li {
-      padding: 10px;
-    }
+      form,
+      li {
+        padding: 10px;
+      }
 
-    form {
-      display: flex;
-      flex: 1;
-    }
+      form {
+        display: flex;
+        flex: 1;
+      }
 
-    label,
-    input {
-      flex: 1;
-      margin-right: 10px;
-    }
+      label,
+      input {
+        flex: 1;
+        margin-right: 10px;
+      }
 
-    input {
-      border-radius: 2px;
-      outline: 0;
-      border: 0;
-      box-shadow: 0 0 0 1px #9E9E9E;
-      padding: 5px;
-    }
+      input {
+        border-radius: 2px;
+        outline: 0;
+        border: 0;
+        box-shadow: 0 0 0 1px #9e9e9e;
+        padding: 5px;
+      }
 
-    input:focus {
-      box-shadow: 0 0 0 1px #00B0FF;
-    }
+      input:focus {
+        box-shadow: 0 0 0 1px #00b0ff;
+      }
 
-    button {
-      border-radius: 2px;
-      border: 0;
-      padding: 4px 8px 5px 8px;
-    }
+      button {
+        border-radius: 2px;
+        border: 0;
+        padding: 4px 8px 5px 8px;
+      }
 
-    label a {
-      color: #000;
-      text-decoration: none;
-    }
+      label a {
+        color: #000;
+        text-decoration: none;
+      }
 
-    label a:hover:hover {
-      color: #0000EE;
-      text-decoration: underline;
-    }
+      label a:hover:hover {
+        color: #0000ee;
+        text-decoration: underline;
+      }
 
-    a {
-      cursor: pointer;
-    }
+      a {
+        cursor: pointer;
+      }
 
-    .errored {
-      box-shadow: 0 0 2px 2px #FF6E40;
-      position: relative;
-    }
+      .errored {
+        box-shadow: 0 0 2px 2px #ff6e40;
+        position: relative;
+      }
 
-    .delete {
-      color: #FF8A80;
-      font-family: "Courier New", monospace;
-      user-select: none;
-    }
+      .delete {
+        color: #ff8a80;
+        font-family: "Courier New", monospace;
+        user-select: none;
+      }
 
-    .undo {
-      color: #8C9EFF;
-      font-family: "Courier New", monospace;
-      user-select: none;
-    }
+      .undo {
+        color: #8c9eff;
+        font-family: "Courier New", monospace;
+        user-select: none;
+      }
 
-    .deleted {
-      text-decoration: line-through;
-    }
-  </style>
-</head>
-<body>
-  <h1>Subreddits</h1>
-  <div id="app"></div>
-  <script src="options.js"></script>
-</body>
+      .deleted {
+        text-decoration: line-through;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Subreddits</h1>
+    <div id="app"></div>
+    <script src="options.js"></script>
+  </body>
 </html>

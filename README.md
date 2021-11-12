@@ -5,8 +5,7 @@
 
 ![][preview]
 
-Features
----
+## Features
 
 - Override Chrome new tab page
 - Display random post from a selection of subreddits
