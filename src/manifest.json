@@ -8,10 +8,8 @@
     "128": "img/icon256.png"
   },
   "options_page": "options.html",
-  "chrome_url_overrides" : {
+  "chrome_url_overrides": {
     "newtab": "index.html"
   },
-  "permissions": [
-    "storage"
-  ]
+  "permissions": ["storage"]
 }
