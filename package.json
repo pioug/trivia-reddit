@@ -7,22 +7,22 @@
     "start": "NODE_ENV=development gulp"
   },
   "dependencies": {
-    "preact": "^10.4.1",
+    "preact": "^10.6.4",
     "query-string": "^6.12.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/plugin-transform-react-jsx": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
+    "@babel/core": "^7.16.7",
+    "@babel/plugin-transform-react-jsx": "^7.16.7",
+    "@babel/preset-env": "^7.16.7",
     "babel-minify": "^0.5.1",
     "babelify": "^10.0.0",
     "browserify": "^16.5.1",
     "del": "^5.1.0",
-    "eslint": "8.2.0",
-    "eslint-config-preact": "1.2.0",
+    "eslint": "^8.5.0",
+    "eslint-config-preact": "^1.3.0",
     "gulp": "^4.0.2",
     "gulp-zip": "^5.0.1",
-    "prettier": "2.4.1",
+    "prettier": "^2.5.1",
     "streplacify": "^1.0.0",
     "vinyl-source-stream": "^2.0.0",
     "watchify": "^3.11.1"

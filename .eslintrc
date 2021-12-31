@@ -12,5 +12,10 @@
     "es2021": true,
     "node": true,
     "webextensions": true
+  },
+  "settings": {
+    "jest": {
+      "version": 27
+    }
   }
 }
