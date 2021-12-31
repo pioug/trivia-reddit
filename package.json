@@ -7,8 +7,7 @@
     "start": "NODE_ENV=development gulp"
   },
   "dependencies": {
-    "preact": "^10.6.4",
-    "query-string": "^6.12.1"
+    "preact": "^10.6.4"
   },
   "devDependencies": {
     "@babel/core": "^7.16.7",
