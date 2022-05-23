@@ -17,6 +17,12 @@ chrome.storage.sync.get("subreddits", (obj) => {
   );
 });
 
+function decodeHtml(html) {
+  const textarea = document.createElement("textarea");
+  textarea.innerHTML = html;
+  return textarea.value;
+}
+
 class RedditTrivia extends Component {
   constructor(props) {
     const rand = Math.floor(Math.random() * props.subreddits.length);
@@ -39,7 +45,7 @@ class RedditTrivia extends Component {
         const postNext = posts[rand];
         localStorage.post = JSON.stringify({
           url: postNext.data.url,
-          title: postNext.data.title,
+          title: decodeHtml(postNext.data.title),
           subreddit: postNext.data.subreddit,
           permalink: postNext.data.permalink,
         });
