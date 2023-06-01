@@ -1,16 +1,16 @@
-const del = require("del");
-const gulp = require("gulp");
-const manifest = require("./src/manifest.json");
-const zip = require("gulp-zip");
-const rollup = require("rollup");
+import fs from "node:fs";
+import { deleteAsync } from "del";
+import gulp from "gulp";
+import zip from "gulp-zip";
+import { rollup } from "rollup";
 
-const { babel } = require("@rollup/plugin-babel");
-const commonjs = require("@rollup/plugin-commonjs");
-const { nodeResolve } = require("@rollup/plugin-node-resolve");
-const { terser } = require("rollup-plugin-terser");
+import { babel } from "@rollup/plugin-babel";
+import commonjs from "@rollup/plugin-commonjs";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
+import terser from "@rollup/plugin-terser";
 
 gulp.task("scripts", async () => {
-  const bundle = await rollup.rollup({
+  const bundle = await rollup({
     input: {
       app: "src/app.jsx",
       options: "src/options.jsx",
@@ -31,10 +31,8 @@ gulp.task("scripts", async () => {
     ],
   });
   return bundle.write({
-    output: {
-      dir: "build",
-      format: "esm",
-    },
+    dir: "build",
+    format: "es",
   });
 });
 
@@ -46,8 +44,8 @@ gulp.task("build", () =>
 
 gulp.task("images", () => gulp.src("src/*img/*").pipe(gulp.dest("build")));
 
-gulp.task("clean:build", () => del(["build"]));
-gulp.task("clean:bundle", () => del(["bundle"]));
+gulp.task("clean:build", () => deleteAsync(["build"]));
+gulp.task("clean:bundle", () => deleteAsync(["bundle"]));
 
 gulp.task(
   "default",
@@ -56,6 +54,8 @@ gulp.task(
     gulp.watch("src/**/*.jsx", gulp.series("scripts"));
   })
 );
+
+const manifest = JSON.parse(fs.readFileSync("src/manifest.json", "utf8"));
 
 gulp.task(
   "bundle",
