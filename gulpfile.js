@@ -5,7 +5,6 @@ import zip from "gulp-zip";
 import { rollup } from "rollup";
 
 import { babel } from "@rollup/plugin-babel";
-import commonjs from "@rollup/plugin-commonjs";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import terser from "@rollup/plugin-terser";
 
@@ -22,7 +21,6 @@ gulp.task("scripts", async () => {
       warn(warning);
     },
     plugins: [
-      commonjs(),
       nodeResolve(),
       babel({
         babelHelpers: "bundled",

@@ -14,7 +14,6 @@
     "@babel/core": "^7.16.7",
     "@babel/plugin-transform-react-jsx": "^7.16.7",
     "@rollup/plugin-babel": "^6.0.3",
-    "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/plugin-terser": "^0.4.3",
     "del": "^7.0.0",
