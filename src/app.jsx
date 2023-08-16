@@ -36,7 +36,7 @@ class RedditTrivia extends Component {
       this.state = {};
     }
 
-    fetch(`https://www.reddit.com${subreddit}.json`)
+    fetch(`https://api.reddit.com${subreddit}.json`)
       .then((response) => response.json())
       .then((json) => {
         const posts = json.data.children;
