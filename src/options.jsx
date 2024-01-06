@@ -1,8 +1,7 @@
 import { Component, h, render } from "preact";
-import { parse } from "query-string";
 import { DEFAULT_SUBREDDITS } from "./constants.js";
 
-const errored = parse(location.search).subreddit;
+const errored = new URLSearchParams(location.search).get("subreddit");
 
 chrome.storage.sync.get("subreddits", (obj) => {
   const subreddits =

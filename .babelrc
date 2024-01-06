@@ -1,19 +1,4 @@
 {
-  "env": {
-    "production": {
-      "presets": ["minify"]
-    }
-  },
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "targets": {
-          "browsers": ["last 5 Chrome versions"]
-        }
-      }
-    ]
-  ],
   "plugins": [
     [
       "@babel/plugin-transform-react-jsx",
