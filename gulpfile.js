@@ -13,17 +13,17 @@ const env = {
 };
 
 gulp.task("scripts:app", () =>
-  browserifyInit({ entry: "app" }).pipe(gulp.dest("build"))
+  browserifyInit({ entry: "app" }).pipe(gulp.dest("build")),
 );
 
 gulp.task("scripts:options", () =>
-  browserifyInit({ entry: "options" }).pipe(gulp.dest("build"))
+  browserifyInit({ entry: "options" }).pipe(gulp.dest("build")),
 );
 
 gulp.task("build", () =>
   gulp
     .src(["src/index.html", "src/options.html", "src/manifest.json"])
-    .pipe(gulp.dest("build"))
+    .pipe(gulp.dest("build")),
 );
 
 gulp.task("images", () => gulp.src("src/*img/*").pipe(gulp.dest("build")));
@@ -36,7 +36,7 @@ gulp.task(
   gulp.series("build", "scripts:app", "scripts:options", () => {
     gulp.watch("src/**/*.html", gulp.series("build"));
     gulp.watch("src/**/*.jsx", gulp.parallel("scripts:app", "scripts:options"));
-  })
+  }),
 );
 
 gulp.task(
@@ -51,8 +51,8 @@ gulp.task(
       gulp
         .src("build/**/*")
         .pipe(zip("trivia-for-reddit-" + manifest.version + ".zip"))
-        .pipe(gulp.dest("bundle"))
-  )
+        .pipe(gulp.dest("bundle")),
+  ),
 );
 
 function browserifyInit(params) {
@@ -64,8 +64,8 @@ function browserifyInit(params) {
         packageCache: {},
         debug: process.env.NODE_ENV === "development",
       },
-      params
-    )
+      params,
+    ),
   )
     .transform(babelify, { global: true })
     .transform(replace, {
