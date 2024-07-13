@@ -1,6 +1,6 @@
 const babelify = require("babelify");
 const browserify = require("browserify");
-const del = require("del");
+const fs = require("node:fs/promises");
 const gulp = require("gulp");
 const manifest = require("./src/manifest.json");
 const replace = require("streplacify");
@@ -28,8 +28,12 @@ gulp.task("build", () =>
 
 gulp.task("images", () => gulp.src("src/*img/*").pipe(gulp.dest("build")));
 
-gulp.task("clean:build", () => del(["build"]));
-gulp.task("clean:bundle", () => del(["bundle"]));
+gulp.task("clean:build", () =>
+  fs.rm("build", { force: true, recursive: true }),
+);
+gulp.task("clean:bundle", () =>
+  fs.rm("bundle", { force: true, recursive: true }),
+);
 
 gulp.task(
   "default",
