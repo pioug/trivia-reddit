@@ -13,7 +13,7 @@ chrome.storage.sync.get("subreddits", (obj) => {
 
   render(
     <RedditTrivia subreddits={subreddits} />,
-    document.getElementById("app")
+    document.getElementById("app"),
   );
 });
 

@@ -36,7 +36,7 @@ gulp.task("scripts", async () => {
 gulp.task("build", () =>
   gulp
     .src(["src/index.html", "src/options.html", "src/manifest.json"])
-    .pipe(gulp.dest("build"))
+    .pipe(gulp.dest("build")),
 );
 
 gulp.task("images", () => gulp.src("src/*img/*").pipe(gulp.dest("build")));
@@ -53,7 +53,7 @@ gulp.task(
   gulp.series("build", "scripts", () => {
     gulp.watch("src/**/*.html", gulp.series("build"));
     gulp.watch("src/**/*.jsx", gulp.series("scripts"));
-  })
+  }),
 );
 
 const manifest = JSON.parse(fs.readFileSync("src/manifest.json", "utf8"));
@@ -64,6 +64,6 @@ gulp.task(
     gulp
       .src("build/**/*")
       .pipe(zip(`trivia-for-reddit-${manifest.version}.zip`))
-      .pipe(gulp.dest("bundle"))
-  )
+      .pipe(gulp.dest("bundle")),
+  ),
 );

@@ -15,7 +15,7 @@ chrome.storage.sync.get("subreddits", (obj) => {
 
   render(
     <RedditTriviaOptions subreddits={subreddits} />,
-    document.getElementById("app")
+    document.getElementById("app"),
   );
 });
 
@@ -53,7 +53,7 @@ class RedditTriviaOptions extends Component {
       this.setState({ inputValue: "", subreddits });
       chrome.storage.sync.set({
         subreddits: subreddits.filter(
-          (sr) => !this.state.deletedSubreddits.includes(sr)
+          (sr) => !this.state.deletedSubreddits.includes(sr),
         ),
       });
 
@@ -64,18 +64,18 @@ class RedditTriviaOptions extends Component {
       this.setState({ deletedSubreddits });
       chrome.storage.sync.set({
         subreddits: this.state.subreddits.filter(
-          (sr) => !deletedSubreddits.includes(sr)
+          (sr) => !deletedSubreddits.includes(sr),
         ),
       });
     };
     const onUndo = (subreddit) => {
       const deletedSubreddits = this.state.deletedSubreddits.filter(
-        (sr) => sr !== subreddit
+        (sr) => sr !== subreddit,
       );
       this.setState({ deletedSubreddits });
       chrome.storage.sync.set({
         subreddits: this.state.subreddits.filter(
-          (sr) => !deletedSubreddits.includes(sr)
+          (sr) => !deletedSubreddits.includes(sr),
         ),
       });
     };
