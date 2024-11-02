@@ -1,5 +1,4 @@
-import fs from "node:fs";
-import { deleteAsync } from "del";
+import fs, { promises as fsPromises } from "node:fs";
 import gulp from "gulp";
 import zip from "gulp-zip";
 import { rollup } from "rollup";
@@ -42,8 +41,12 @@ gulp.task("build", () =>
 
 gulp.task("images", () => gulp.src("src/*img/*").pipe(gulp.dest("build")));
 
-gulp.task("clean:build", () => deleteAsync(["build"]));
-gulp.task("clean:bundle", () => deleteAsync(["bundle"]));
+gulp.task("clean:build", () =>
+  fsPromises.rm("build", { force: true, recursive: true }),
+);
+gulp.task("clean:bundle", () =>
+  fsPromises.rm("bundle", { force: true, recursive: true }),
+);
 
 gulp.task(
   "default",
