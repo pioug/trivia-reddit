@@ -1,35 +1,26 @@
 import fs, { promises as fsPromises } from "node:fs";
 import gulp from "gulp";
 import zip from "gulp-zip";
-import { rollup } from "rollup";
-
-import { babel } from "@rollup/plugin-babel";
-import { nodeResolve } from "@rollup/plugin-node-resolve";
-import terser from "@rollup/plugin-terser";
+import { rolldown } from "rolldown";
 
 gulp.task("scripts", async () => {
-  const bundle = await rollup({
+  const bundle = await rolldown({
     input: {
       app: "src/app.jsx",
       options: "src/options.jsx",
     },
-    onwarn(warning, warn) {
-      if (warning.code === "UNRESOLVED_IMPORT") {
-        throw new Error(warning.message);
-      }
-      warn(warning);
+    resolve: {
+      alias: {
+        react: "preact/compat",
+        "react-dom/test-utils": "preact/test-utils",
+        "react-dom": "preact/compat",
+        "react/jsx-runtime": "preact/jsx-runtime",
+      },
     },
-    plugins: [
-      nodeResolve(),
-      babel({
-        babelHelpers: "bundled",
-      }),
-      terser(),
-    ],
   });
   return bundle.write({
     dir: "build",
-    format: "es",
+    minify: true,
   });
 });
 
