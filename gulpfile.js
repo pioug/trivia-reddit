@@ -30,7 +30,9 @@ gulp.task("build", () =>
     .pipe(gulp.dest("build")),
 );
 
-gulp.task("images", () => gulp.src("src/*img/*").pipe(gulp.dest("build")));
+gulp.task("images", () =>
+  gulp.src("src/*img/*", { encoding: false }).pipe(gulp.dest("build")),
+);
 
 gulp.task("clean:build", () =>
   fsPromises.rm("build", { force: true, recursive: true }),
@@ -53,7 +55,7 @@ gulp.task(
   "bundle",
   gulp.series("clean:bundle", "build", "images", "scripts", () =>
     gulp
-      .src("build/**/*")
+      .src("build/**/*", { encoding: false })
       .pipe(zip(`trivia-for-reddit-${manifest.version}.zip`))
       .pipe(gulp.dest("bundle")),
   ),
