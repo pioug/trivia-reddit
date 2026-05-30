@@ -2,19 +2,12 @@
   "name": "reddit-trivia",
   "type": "module",
   "scripts": {
-    "bundle": "NODE_ENV=production gulp bundle",
+    "bundle": "NODE_ENV=production node scripts/build.mjs --bundle",
     "format": "prettier . --write",
-    "lint": "eslint . --fix",
-    "start": "NODE_ENV=development gulp"
-  },
-  "dependencies": {
-    "preact": "^10.6.4"
+    "lint": "node --check src/app.js && node --check src/options.js && node --check src/constants.js && node --check scripts/build.mjs",
+    "start": "NODE_ENV=development node --watch-path=src --watch-path=scripts scripts/build.mjs"
   },
   "devDependencies": {
-    "eslint": "^9.39.2",
-    "eslint-config-preact": "^2.0.0",
-    "gulp": "^5.0.0",
-    "gulp-zip": "^6.0.0",
     "prettier": "^3.3.3",
     "rolldown": "^1.0.0-rc.3"
   }

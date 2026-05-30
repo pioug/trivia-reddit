@@ -1,4 +1,4 @@
-**Trivia for Reddit** is a Chrome extension written in Preact.
+**Trivia for Reddit** is a Chrome extension.
 
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/obolamlakdealmajpalhcccpoificegl.svg?style=flat-square)]()
 [![Chrome Web Store](https://img.shields.io/chrome-web-store/d/obolamlakdealmajpalhcccpoificegl.svg?style=flat-square)]()
