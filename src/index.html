@@ -22,58 +22,45 @@
       body {
         background: var(--background-color);
         display: flex;
+        flex-direction: column;
         font-family:
           -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans,
           Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
         height: 100vh;
-        justify-content: center;
         margin: 0;
         overflow: hidden;
       }
 
-      #app {
-        display: flex;
-        flex-grow: 1;
-      }
-
-      main {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-      }
-
-      header {
-        display: flex;
-        flex-direction: column-reverse;
+      body::before {
+        content: "";
         flex-grow: 2;
       }
 
-      footer {
+      body::after {
+        content: "";
         flex-grow: 5;
       }
 
       h1 {
         color: var(--title-color);
-        display: block;
         font-size: 26px;
         font-weight: normal;
         line-height: 1.5;
         margin: 0 auto;
         padding: 24px 12px;
-        position: relative;
         text-wrap: balance;
         width: 600px;
       }
 
       h2 {
+        box-sizing: border-box;
         color: var(--subreddit-color);
         font-size: 16px;
-        font-weight: 200;
         font-weight: normal;
         margin: 0 auto;
-        max-width: 600px;
+        max-width: 624px;
         padding: 25px 12px;
-        position: relative;
+        width: 100%;
       }
 
       a {
@@ -81,27 +68,15 @@
         color: inherit;
         text-decoration: none;
       }
-
-      a:hover {
-        text-decoration: none;
-      }
     </style>
   </head>
   <body>
-    <div id="app">
-      <main>
-        <header>
-          <h1>
-            <a id="title-link"></a>
-          </h1>
-        </header>
-        <footer>
-          <h2 id="subreddit-heading" hidden>
-            <a id="subreddit-link"></a>
-          </h2>
-        </footer>
-      </main>
-    </div>
+    <h1>
+      <a id="title-link"></a>
+    </h1>
+    <h2 id="subreddit-heading" hidden>
+      <a id="subreddit-link"></a>
+    </h2>
     <script type="module" src="app.js"></script>
   </body>
 </html>
