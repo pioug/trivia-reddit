@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Trivia for Reddit",
   "description": "Get a question or fact about science, history, or news when you open a tab.",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "options_ui": {
     "page": "options.html",
     "open_in_tab": true
